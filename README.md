@@ -13,6 +13,8 @@ C:\OpticsFoundry\
 
 For Vitis, it's easier to use this specific path than trying to adjust the project to a different one.
 
+If you dont choose this path, make sure your root path is short, otherwise git will complain that some of the paths are too long.
+
 ## To create the Z-turn V2 firmware
 
 With Vitis 2023.1 (and not another Vitis version), open the folder 
@@ -22,6 +24,17 @@ C:\OpticsFoundry\OF_Sequencer_Zturn\OF_Sequencer_Zturn_Vitis_2023.1
 An empty workspace should appear. To import the project(s), select
 
 File -> Import -> Import projects from Git -> Existing local repository -> OF_Sequencer_Zturn -> Import existing Eclipse projects -> OF_Sequencer_Zturn_Vitis_2023.1 -> Finish
+
+```if during the import, the import files are grayed out and Vitis does not allow you to finish the import use this trick.
+close Vitis, open Vitis, lauch at a different workspace (like C:\Users\QDCC2\Vitis_workspace)
+then do the same import procedure as before, this time you should be able to finish the import.
+open the windows explorer, navigate to the workspace you just opened. you should see that it does not contain the folders from git.
+from where you have cloned the github repository, copy the contents of the "OF_Sequencer_Zturn_Vitis_2023.1" folder into the workspace.
+so you should have these folders:
+C:\Users\QDCC2\Vitis_workspace\OpticsFoundry_Seq_Zturn_App
+C:\Users\QDCC2\Vitis_workspace\OpticsFoundry_Seq_Zturn_App_system
+C:\Users\QDCC2\Vitis_workspace\OpticsFoundry_Seq_Zturn_Platform```
+
 
 Right click "OpticsFoundry_Seq...App" (not "..App_system")
 
@@ -41,6 +54,14 @@ To recreate and flash the firmware do the following:
 
 Right click on "Assistant" OpticsFoundry_Seq_Zturn_App -> Debug and select it.
 
+Right-click OpticsFoundry_Seq_Zturn_App → Properties
+Go to C/C++ Build → Settings
+At the top, change the configuration dropdown from Debug to Release
+Go to ARM v7 gcc linker → Libraries
+In the Libraries list, click Add (+)
+Type m (just the letter m, no dash) → OK
+Click Apply and Close
+
 Right click on projects in "Explorer" and select "Build all", or just "Build", then "Create Boot Image".
 
 Right click on "Assistant" OpticsFoundry_Seq_Zturn_App -> Release and select it.
@@ -49,15 +70,21 @@ Right click on projects in "Explorer" and select "Build all", or just "Build", t
 
 Connect the Z-turn V2 to power using a Mini USB cable. Connect a suitable JTAG programmer to your PC, e.g. a Digilent JTAG-HS2 using a Micro USB cable. Plug both USB cables into the same computer. Connect the JTAG programmer to the Z-turn Board V2 using an adapter cable or board. If you use the adapter cable delivered with your control system: the side with the cable marked in red points towards the edge of the Z-turn board and goes into the VDD pin of the Digilent JTAG-HS2. To enter JTAG programming mode, you need to set JP1 of the Z-turn board to Closed and JP2 to Open before connecting the board to power, see Photo 1 below. 
 
-After powering on the Z-turn and the JTAG programmer, select "Explorer" -> "Program Flash". If the JTAG cable is not detected, you might have to download the lated Digilent driver. After you finish programming, you need to set both jumpers to Closed, see Photo 2 below.
+After powering on the Z-turn and the JTAG programmer, select "Explorer" -> "Program Flash". If the JTAG cable is not detected, you might have to download the lated Digilent [driver](https://digilent.com/reference/software/adept/runtime-previous-versions). for isntalling run the installer .exe as an administrator and power-cycle your PC. After you finish programming, you need to set both jumpers to Closed, see Photo 2 below.
 
 Use [OpticsFoundry_ControlLight](https://github.com/opticsfoundry/OpticsFoundry_ControlLight) to test the sequencer.
 
 ![Programming the Z-turn V2](Photos/programming_Z-turn_V2.jpeg)
-**Photo 1:** Programming the Z-turn V2; pay attention to put JP2 to Open before powering up the board and to the programming cable orientation.
+**Photo 1:** Programming the Z-turn V2; pay attention to put JP2 to Open and JP1 to Closed before powering up the board and to the programming cable orientation. The jumper pins are next to the Ethernet port.
 
 ![Using the Z-turn V2](Photos/using_Z-turn_V2.jpeg)
 **Photo 2:** Using the Z-turn V2; pay attention to setting JP2 to Closed.
+
+![Connection diagram for JTAG communication](Photos/JTAG-HS2_connection_JTAG-Zturn.jpg)
+**Photo 3:** Pinout of the [HS2-JTAG](https://digilent.com/reference/programmers/jtag-hs2/reference-manual) and pin out of [JTAG port](https://www.myirtech.com/faq_list.asp?id=545) on the Z-turn from MYiR. 
+
+
+
 
 
 ## Modifying the C code of the Z-turn V2 firmware
