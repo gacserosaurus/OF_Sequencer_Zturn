@@ -25,7 +25,8 @@ An empty workspace should appear. To import the project(s), select
 
 File -> Import -> Import projects from Git -> Existing local repository -> OF_Sequencer_Zturn -> Import existing Eclipse projects -> OF_Sequencer_Zturn_Vitis_2023.1 -> Finish
 
-```if during the import, the import files are grayed out and Vitis does not allow you to finish the import use this trick.
+
+if during the import, the import files are grayed out and Vitis does not allow you to finish the import use this trick.
 close Vitis, open Vitis, lauch at a different workspace (like C:\Users\QDCC2\Vitis_workspace)
 then do the same import procedure as before, this time you should be able to finish the import.
 open the windows explorer, navigate to the workspace you just opened. you should see that it does not contain the folders from git.
@@ -33,7 +34,8 @@ from where you have cloned the github repository, copy the contents of the "OF_S
 so you should have these folders:
 C:\Users\QDCC2\Vitis_workspace\OpticsFoundry_Seq_Zturn_App
 C:\Users\QDCC2\Vitis_workspace\OpticsFoundry_Seq_Zturn_App_system
-C:\Users\QDCC2\Vitis_workspace\OpticsFoundry_Seq_Zturn_Platform```
+C:\Users\QDCC2\Vitis_workspace\OpticsFoundry_Seq_Zturn_Platform
+
 
 
 Right click "OpticsFoundry_Seq...App" (not "..App_system")
